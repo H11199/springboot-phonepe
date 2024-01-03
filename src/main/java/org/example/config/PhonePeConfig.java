@@ -14,10 +14,11 @@ public class PhonePeConfig {
     @Bean
     PhonePePaymentClient phonePePaymentClient(
             final PhonePeProperties phonePeProperties) {
+        System.out.println(phonePeProperties);
         return new PhonePePaymentClient(phonePeProperties.merchantId(),
-                    phonePeProperties.saltKey(),
-                    phonePeProperties.saltIndex(),
-                    phonePeProperties.env(),
-                    phonePeProperties.shouldPublishEvents());
+                phonePeProperties.saltKey(),
+                phonePeProperties.saltIndex(),
+                phonePeProperties.env(),
+                phonePeProperties.shouldPublishEvents());
     }
 }

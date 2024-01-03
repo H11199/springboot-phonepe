@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.net.MalformedURLException;
+import java.util.UUID;
 
 @Controller
 public class PaymentController {
@@ -38,10 +39,11 @@ public class PaymentController {
      */
     @GetMapping(value = "/pay")
     public RedirectView pay(final RedirectAttributes attributes)
-                                     throws MalformedURLException {
+            throws MalformedURLException {
         Payment payment = new Payment();
         payment.setUserName("Sathish");
         payment.setAmount(DEFAULT_AMOUNT);
+        payment.setTransactionId(UUID.randomUUID().toString());
         return new RedirectView(paymentService.pay(payment).toString());
     }
     /**
@@ -60,14 +62,13 @@ public class PaymentController {
                                       @RequestParam(name = "transactionId") final String transactionId,
                                       @RequestParam(name = "merchantId") final String merchantId,
                                       @RequestParam(name = "providerReferenceId")
-                                          final String providerReferenceId,
+                                      final String providerReferenceId,
                                       @RequestParam(name = "amount") final long amount,
                                       HttpEntity<String> httpEntity) {
-
-        model.addAttribute("response", paymentService.getStatus(code,
-                                          transactionId, merchantId,
-                                          providerReferenceId, amount));
+        Object payment = paymentService.getStatus(code,
+                transactionId, merchantId,
+                providerReferenceId, amount);
+        model.addAttribute("response", payment);
         return "payment_success";
     }
-
 }

@@ -11,7 +11,8 @@
     <div class="container py-5">
         <div class="row d-flex justify-content-center">
             <h3 class="text-center">PAYMENT RESPONSE</h3>
-            <div th:utext="${response}"></div>
+            <h2 th:utext="${response.transactionId}"></h2>
+            <div class="text-success" th:utext="${response.responseCode}"></div>
         </div>
     </div>
 </section>
