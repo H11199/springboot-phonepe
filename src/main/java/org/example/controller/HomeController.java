@@ -18,4 +18,10 @@ public class HomeController {
         model.addAttribute("title", "My Title");
         return "index";
     }
+    @GetMapping(value = {"/","/razorpay"})
+    public String razorpay(final Model model){
+        model.addAttribute("title", "My Title");
+        return "razorpay";
+    }
+
 }

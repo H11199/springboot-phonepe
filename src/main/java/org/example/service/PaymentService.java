@@ -6,8 +6,13 @@ import com.phonepe.sdk.pg.payments.v1.models.request.PgPayRequest;
 import com.phonepe.sdk.pg.payments.v1.models.response.PayPageInstrumentResponse;
 import com.phonepe.sdk.pg.payments.v1.models.response.PgPayResponse;
 import com.phonepe.sdk.pg.payments.v1.models.response.PgTransactionStatusResponse;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
 import org.example.config.PhonePeProperties;
 import org.example.model.Payment;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -101,5 +106,15 @@ public class PaymentService {
 
         }
         return null;
+    }
+    public String createOrder(JSONObject object){
+        Order order = null;
+        try{
+            RazorpayClient razorpayClient = new RazorpayClient("rzp_test_XDw7UM5Ne41EzZ","IGKt94kKjt3gn9keKjTJEddO");
+            order = razorpayClient.orders.create(object);
+        }catch (RazorpayException e){
+            e.printStackTrace();
+        }
+        return order.get("id");
     }
 }

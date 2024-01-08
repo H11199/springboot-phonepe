@@ -7,3 +7,8 @@ spring:
       env: UAT
       shouldPublishEvents: true
       callbackUrl: http://localhost:8080/pay-return-url
+
+rzp_key_id: rzp_test_XDw7UM5Ne41EzZ
+rzp_key_secret: IGKt94kKjt3gn9keKjTJEddO
+rzp_currency: INR
+rzp_company_name: PLUGIN
