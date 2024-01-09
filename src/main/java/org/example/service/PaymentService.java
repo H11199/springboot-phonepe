@@ -10,20 +10,22 @@ import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 import org.example.config.PhonePeProperties;
+import org.example.config.RazorpayProperties;
 import org.example.model.Payment;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class PaymentService {
+
+
 
     private final Map<String, Payment> payments ;
 
@@ -42,8 +44,24 @@ public class PaymentService {
     @Autowired
     private PhonePeProperties phonePeProperties;
 
+
+    @Autowired
+    private RazorpayClient razorpayClient;
+    @Autowired
+    private RazorpayProperties razorpayProperties;
+
+    private final String KEY_ID ="rzp_test_XDw7UM5Ne41EzZ";
+
+    @Value("${razorpay.rzp_key_id}")
+    private String key3 ;
+
+    private final String SECRET_KEY = "IGKt94kKjt3gn9keKjTJEddO";
+
+
     public PaymentService() {
         this.payments = new ConcurrentHashMap<>();
+       // this.razorpayProperties = new RazorpayProperties();
+
     }
 
     /**
@@ -110,7 +128,7 @@ public class PaymentService {
     public String createOrder(JSONObject object){
         Order order = null;
         try{
-            RazorpayClient razorpayClient = new RazorpayClient("rzp_test_XDw7UM5Ne41EzZ","IGKt94kKjt3gn9keKjTJEddO");
+           // RazorpayClient razorpayClient = new RazorpayClient(KEY_ID, SECRET_KEY);
             order = razorpayClient.orders.create(object);
         }catch (RazorpayException e){
             e.printStackTrace();

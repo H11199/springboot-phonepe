@@ -30,7 +30,8 @@ function OpenCheckout(amount, contactCounts, razorpayOrderId, description) {
         "description": description,
         "image": "/assets/users/images/logo.png",
         "order_id": razorpayOrderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        "callback_url": "/payment/success/"+amount+"/"+contactCounts+"/[[${rzp_company_name}]]/[[${rzp_currency}]]/"+description,
+        "callback_url": "http://localhost:8080/rsuccess/"+amount+"/"+description,
+
         "notes": {
             "description": description,
             "company_name": "[[${rzp_company_name}]]",
